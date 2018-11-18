@@ -7,10 +7,6 @@
     <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-    <meta-data
-        android:name="com.google.android.awareness.API_KEY"
-        android:value="AIzaSyBZN02slTJcV6EERWHo8SL1UFZf7kpiaKg"/>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,6 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.awareness.API_KEY"
+            android:value="AIzaSyDv_fTFz-aPyNzxYeDqjbqyCNVg6jpD8Wo"/>
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

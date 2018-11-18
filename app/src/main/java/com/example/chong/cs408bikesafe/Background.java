@@ -175,6 +175,7 @@ public class Background extends Service {
                     // Update UI with location data
 
                     if (state == STATE.BIKING) {
+                        Log.e("TAG","I'M BIKING!");
                         double latitude = location.getLatitude();
                         double longitude = location.getLongitude();
                         float speed = location.getSpeed();
@@ -303,7 +304,7 @@ public class Background extends Service {
                         }
 
                         // speed checking
-                        float speedLimit = normalspeed*(rainspeedmultiplier+(1-rainspeedmultiplier)*(1-raining))*(intersectionspeedmultiplier+(1-intersectionspeedmultiplier)*(1-atIntersection))
+                        float speedLimit = normalspeed*(rainspeedmultiplier+(1-rainspeedmultiplier)*(1-raining))*(intersectionspeedmultiplier+(1-intersectionspeedmultiplier)*(1-atIntersection));
                         if (speedLimit < speed) {
                             speeding = true;
                             if (atIntersection == 1) {
@@ -343,6 +344,7 @@ public class Background extends Service {
 
 
     private void handleActivity(Intent intent){
+        Log.e("TAG", "Hello");
         Calendar cal2;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Background.this);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -376,8 +378,14 @@ public class Background extends Service {
         }
 
         boolean ytdrain = sharedPreferences.getBoolean("rain", false);
-        if (ytdrain || todayRain) {
-            raining = 1;
+        if (todayRain != null) {
+            if (ytdrain || todayRain) {
+                raining = 1;
+            }
+        } else {
+            if (ytdrain) {
+                raining = 1;
+            }
         }
 
         Log.d("TAG", "Service: handleActivity");
@@ -550,12 +558,13 @@ public class Background extends Service {
                         public void onSuccess(WeatherResponse weatherResponse) {
                             Weather weather = weatherResponse.getWeather();
                             condition = weather.getConditions();
+                            Log.e("TAG","weather" + weather);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.e("fuck","Could not get weather: " + e);
+                            Log.e("TAG","Could not get weather: " + e);
                         }
                     });
         }
